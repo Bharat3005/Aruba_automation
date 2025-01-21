@@ -19,6 +19,22 @@ try:
     output = connection.send_command('show version /n')
     print(output)
 
+    #Execute set of command on the switch 
+    set_command = {"show version", 
+                   "show system", 
+                   "show ip int br", 
+                   "show int eth 1/1/1"
+                   }
+    output = connection.send_config_set(set_command)
+    print(output)
+
+    #Execute command on the switch from file
+    with open('aruba_config', 'r') as config_file:
+        for config in config_file:
+            print('config')
+            output= connection.send_config_from_file(config_file='aruba_config')
+            print(output)
+    
 finally:
     # Close the connection
     connection.disconnect()
